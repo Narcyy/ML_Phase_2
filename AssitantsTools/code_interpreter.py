@@ -4,7 +4,7 @@ client = OpenAI()
 
 # UPLOADING FILES
 upload_file = client.files.create(
-    file = open("customers-100.csv", "rb"),
+    file = open("sample.txt", "rb"),
     purpose="assistants"
 )
 
@@ -18,7 +18,7 @@ assistant = client.beta.assistants.create(
     tools=[{"type": "code_interpreter"}],        # CHECK WHETHER THE TOOL SUPPORTS THE FORMAT OF THE FILE
     # ADDING FILES AT ASSISTANT LEVEL ARE ACCESSIBLE AT ANY WHERE, WHERE THE ASSISTANT USED
     tool_resources={
-     "file_search": {       #TOOL NAME
+     "code_interpreter": {       #TOOL NAME
     "file_ids": [upload_file.id]
     }
     }
@@ -44,11 +44,11 @@ my_thread = client.beta.threads.create (
 )
 
 # CREATE MESSAGE OBJECT
-my_message = client.beta.threads.messages.create(
-    thread_id=my_thread.id,
-    role="user",
-    content="What os the country most of the people are??",
-)
+# my_message = client.beta.threads.messages.create(
+#     thread_id=my_thread.id,
+#     # role="user",
+#     # content="What os the country most of the people are??",
+# )
 
 # CREATE A RUN OBJECT
 # CREATE_AND_POLL WAITS FOR THE COMPLETION AND RETRIVE THE TASK
